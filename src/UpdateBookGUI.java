@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class UpdateBookGUI extends JDialog {
+    private JPanel contentPane;
     private JTextField txtTitle;
     private JTextField txtAuthor;
     private JTextField txtISBN;
@@ -21,34 +22,54 @@ public class UpdateBookGUI extends JDialog {
         this.book = book;
         this.bookIndex = index;
 
-        setTitle("Update Book");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
-        setLayout(new BorderLayout());
+        contentPane = new JPanel();
+        contentPane.setLayout(null);
+        setContentPane(contentPane);
 
-        JPanel panel = new JPanel(new GridLayout(6, 2));
-        add(panel, BorderLayout.CENTER);
+        JLabel lblTitle = new JLabel("Title:");
+        lblTitle.setBounds(62, 40, 79, 15);
+        contentPane.add(lblTitle);
 
-        panel.add(new JLabel("Title:"));
+        JLabel lblAuthor = new JLabel("Author:");
+        lblAuthor.setBounds(62, 70, 79, 15);
+        contentPane.add(lblAuthor);
+
+        JLabel lblISBN = new JLabel("ISBN:");
+        lblISBN.setBounds(62, 100, 79, 15);
+        contentPane.add(lblISBN);
+
+        JLabel lblGenre = new JLabel("Genre:");
+        lblGenre.setBounds(62, 130, 79, 15);
+        contentPane.add(lblGenre);
+
+        JLabel lblQuantity = new JLabel("Quantity:");
+        lblQuantity.setBounds(62, 160, 79, 15);
+        contentPane.add(lblQuantity);
+
         txtTitle = new JTextField(book.getTitle());
-        panel.add(txtTitle);
+        txtTitle.setBounds(158, 37, 187, 21);
+        contentPane.add(txtTitle);
 
-        panel.add(new JLabel("Author:"));
         txtAuthor = new JTextField(book.getAuthor());
-        panel.add(txtAuthor);
+        txtAuthor.setBounds(158, 67, 187, 21);
+        contentPane.add(txtAuthor);
 
-        panel.add(new JLabel("ISBN:"));
         txtISBN = new JTextField(book.getISBN());
-        panel.add(txtISBN);
+        txtISBN.setBounds(158, 97, 187, 21);
+        contentPane.add(txtISBN);
 
-        panel.add(new JLabel("Genre:"));
         txtGenre = new JTextField(book.getGenre());
-        panel.add(txtGenre);
+        txtGenre.setBounds(158, 127, 187, 21);
+        contentPane.add(txtGenre);
 
-        panel.add(new JLabel("Quantity:"));
         txtQuantity = new JTextField(String.valueOf(book.getQuantity()));
-        panel.add(txtQuantity);
+        txtQuantity.setBounds(158, 157, 187, 21);
+        contentPane.add(txtQuantity);
 
         btnSave = new JButton("Save");
+        btnSave.setBounds(62, 206, 93, 23);
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,16 +80,17 @@ public class UpdateBookGUI extends JDialog {
                 }
             }
         });
-        panel.add(btnSave);
+        contentPane.add(btnSave);
 
         btnCancel = new JButton("Cancel");
+        btnCancel.setBounds(252, 206, 93, 23);
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
-        panel.add(btnCancel);
+        contentPane.add(btnCancel);
     }
 
     private void saveBook() throws IOException {

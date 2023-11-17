@@ -15,13 +15,14 @@ public class MainGUI extends JFrame {
     private JButton btnAdd;
     private JButton btnSearch;
     private JButton btnBrowse;
+    private JButton btnViewAllLend;
 
     public MainGUI() throws ClassNotFoundException, IOException {
         Book.loadData();
 		BorrowRecord.loadData();
         setTitle("Library Inventory System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 450, 351);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -70,6 +71,19 @@ public class MainGUI extends JFrame {
         });
         btnBrowse.setBounds(120, 170, 200, 40); 
         contentPane.add(btnBrowse);
+
+        btnViewAllLend = new JButton("View All Lended Books");
+        btnViewAllLend.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    viewAllLend();;
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        btnViewAllLend.setBounds(120, 230, 200, 40);
+        contentPane.add(btnViewAllLend);
     }
 
     public void showBrowseBooks() throws IOException {
@@ -85,5 +99,10 @@ public class MainGUI extends JFrame {
     public void showSearchBook() throws IOException {
         SearchBookGUI searchBookGUI = new SearchBookGUI();
         searchBookGUI.setVisible(true);
+    }
+
+    public void viewAllLend() throws IOException {
+        ViewAllBorrowedBooksGUI ViewAllBorrowedBooksGUI = new ViewAllBorrowedBooksGUI();
+        ViewAllBorrowedBooksGUI.setVisible(true);
     }
 }

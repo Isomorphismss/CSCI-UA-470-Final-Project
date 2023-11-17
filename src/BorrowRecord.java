@@ -71,7 +71,7 @@ public class BorrowRecord implements Serializable {
     public static void loadData() throws IOException, ClassNotFoundException {
         File file = new File("borrowRecord.bin");
         if (file.exists()) {
-            FileInputStream fileInputStream = new FileInputStream("booksInventory.bin");
+            FileInputStream fileInputStream = new FileInputStream("borrowRecord.bin");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             BorrowRecord.setAllBorrowRecord((ArrayList<BorrowRecord>) objectInputStream.readObject());
             objectInputStream.close();

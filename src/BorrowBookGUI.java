@@ -1,31 +1,45 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.ArrayList;
 
 public class BorrowBookGUI extends JDialog {
-    private Book book;
+    private JPanel contentPane;
     private JTextField borrowerNameField;
     private JTextField dueDateField;
     private JButton submitButton;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private Book book;
 
     public BorrowBookGUI(JFrame parent, Book book) {
         super(parent, "Borrow Book", true);
         this.book = book;
-        initializeComponents();
-        setupLayout();
-        pack();
-    }
 
-    private void initializeComponents() {
+        setBounds(100, 100, 450, 200);
+        contentPane = new JPanel();
+        contentPane.setLayout(null);
+        setContentPane(contentPane);
+
+        JLabel lblBorrowerName = new JLabel("Borrower's Name:");
+        lblBorrowerName.setBounds(62, 40, 110, 15);
+        contentPane.add(lblBorrowerName);
+
         borrowerNameField = new JTextField(20);
-        dueDateField = new JTextField(20);
-        submitButton = new JButton("Submit");
+        borrowerNameField.setBounds(182, 37, 187, 21);
+        contentPane.add(borrowerNameField);
 
+        JLabel lblDueDate = new JLabel("Due Date (yyyy-MM-dd):");
+        lblDueDate.setBounds(62, 70, 150, 15);
+        contentPane.add(lblDueDate);
+
+        dueDateField = new JTextField(20);
+        dueDateField.setBounds(222, 67, 137, 21);
+        contentPane.add(dueDateField);
+
+        submitButton = new JButton("Submit");
+        submitButton.setBounds(172, 120, 93, 23);
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -35,9 +49,8 @@ public class BorrowBookGUI extends JDialog {
                     if (borrowerName.isEmpty()) {
                         JOptionPane.showMessageDialog(BorrowBookGUI.this, "Invalid input. Please check the borrower's name.");
                         return;
-                    }
-                    else if (dueDate.before(currentDate)){
-                        JOptionPane.showMessageDialog(BorrowBookGUI.this, "Invalid due date. Due date should not be earlier than today");
+                    } else if (dueDate.before(currentDate)) {
+                        JOptionPane.showMessageDialog(BorrowBookGUI.this, "Invalid due date. Due date should not be earlier than today.");
                         return;
                     }
                     book.setQuantity(book.getQuantity() - 1);
@@ -54,14 +67,6 @@ public class BorrowBookGUI extends JDialog {
                 }
             }
         });
-    }
-
-    private void setupLayout() {
-        setLayout(new GridLayout(3, 2));
-        add(new JLabel("Borrower's Name:"));
-        add(borrowerNameField);
-        add(new JLabel("Due Date (yyyy-MM-dd):"));
-        add(dueDateField);
-        add(submitButton);
+        contentPane.add(submitButton);
     }
 }

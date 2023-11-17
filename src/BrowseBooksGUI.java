@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -82,18 +81,6 @@ public class BrowseBooksGUI extends JFrame {
     }
 
     public void displayAllBooks(ArrayList<Book> books) {
-        if (tableModel == null) {
-            tableModel = new DefaultTableModel();
-            table = new JTable(tableModel) {
-                public boolean isCellEditable(int row, int column) {
-                    return false;
-                }
-            };
-            scrollPane = new JScrollPane(table);
-            scrollPane.setBounds(54, 40, 333, 139);
-            contentPane.add(scrollPane);
-        }
-    
         String[] columnNames = {"Title", "Author", "ISBN", "Genre", "Quantity"};
         Object[][] data = new Object[books.size()][5];
         for (int i = 0; i < books.size(); i++) {
@@ -104,13 +91,24 @@ public class BrowseBooksGUI extends JFrame {
             data[i][3] = book.getGenre();
             data[i][4] = book.getQuantity();
         }
-        tableModel.setDataVector(data, columnNames);
+        if (tableModel == null) {
+            tableModel = new DefaultTableModel(data, columnNames);
+            table = new JTable(tableModel) {
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            scrollPane = new JScrollPane(table);
+            scrollPane.setBounds(54, 40, 333, 139);
+            contentPane.add(scrollPane);
+        } else {
+            tableModel.setDataVector(data, columnNames);
+        }
     }
 
     public void deleteBook(int index) throws IOException {
         Book.getBooksInventory().remove(index);
-        contentPane.remove(scrollPane);
-        displayAllBooks(Book.getBooksInventory());
+        displayAllBooks(Book.getBooksInventory()); // Refresh the table model directly
         Book.saveData();
     }
 

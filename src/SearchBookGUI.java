@@ -141,10 +141,8 @@ public class SearchBookGUI extends JFrame {
     }
 
     public void lendBook(Book selectedBook) {
-        // Open Borrowing GUI
         BorrowBookGUI borrowBookGUI = new BorrowBookGUI(this, selectedBook);
         borrowBookGUI.setVisible(true);
-        // After borrowing, refresh the search results
         search(txtSearch.getText());
     }
 }

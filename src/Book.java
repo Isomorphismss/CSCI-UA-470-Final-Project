@@ -65,6 +65,18 @@ public class Book implements Serializable {
         this.quantity = quantity;
     }
 
+    // Ensure it's the same book regardless of memory location
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Book book = (Book) obj;
+        return ISBN != null ? ISBN.equals(book.ISBN) : book.ISBN == null;
+    }
+
+    public int hashCode() {
+        return ISBN != null ? ISBN.hashCode() : 0;
+    }
+
     @SuppressWarnings("unchecked")
     public static void loadData() throws IOException, ClassNotFoundException {
         File file = new File("booksInventory.bin");
