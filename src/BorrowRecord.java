@@ -1,4 +1,11 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class BorrowRecord implements Serializable {
@@ -6,12 +13,17 @@ public class BorrowRecord implements Serializable {
     private String borrowerName;
     private Date borrowDate;
     private Date dueDate;
+    private static ArrayList<BorrowRecord> borrowedRecord = new ArrayList<>();
 
     public BorrowRecord(Book borrowedBook, String borrowerName, Date borrowDate, Date dueDate) {
         this.borrowedBook = borrowedBook;
         this.borrowerName = borrowerName;
         this.borrowDate = borrowDate;
         this.dueDate = dueDate;
+    }
+
+    public static ArrayList<BorrowRecord> getAllBorrowRecord(){
+        return borrowedRecord;
     }
 
     public Book getBorrowedBook() {
@@ -28,6 +40,10 @@ public class BorrowRecord implements Serializable {
 
     public Date getDueDate() {
         return dueDate;
+    }
+
+    public static void setAllBorrowRecord(ArrayList<BorrowRecord> borrowedRecord){
+        BorrowRecord.borrowedRecord = borrowedRecord;
     }
 
     public void setBorrowedBook(Book borrowedBook) {
@@ -48,5 +64,24 @@ public class BorrowRecord implements Serializable {
 
     public boolean isOverdue(Date currentDate) {
         return currentDate.after(this.dueDate);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public static void loadData() throws IOException, ClassNotFoundException {
+        File file = new File("borrowRecord.bin");
+        if (file.exists()) {
+            FileInputStream fileInputStream = new FileInputStream("booksInventory.bin");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            BorrowRecord.setAllBorrowRecord((ArrayList<BorrowRecord>) objectInputStream.readObject());
+            objectInputStream.close();
+        }
+    }
+
+    public static void saveData() throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream("borrowRecord.bin");
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(BorrowRecord.getAllBorrowRecord());
+        objectOutputStream.close();
     }
 }

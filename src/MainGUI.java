@@ -17,7 +17,8 @@ public class MainGUI extends JFrame {
     private JButton btnBrowse;
 
     public MainGUI() throws ClassNotFoundException, IOException {
-        Book.loadData(); 
+        Book.loadData();
+		BorrowRecord.loadData();
         setTitle("Library Inventory System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
