@@ -61,6 +61,10 @@ public class SearchBookGUI extends JFrame {
         btnLendBook = new JButton("Lend this Book");
         btnLendBook.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
+            if(table==null) {
+            	JOptionPane.showMessageDialog(SearchBookGUI.this, "Please select a book to lend.");
+            }
+            else {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
                     Book selectedBook = BookList.getBooksInventory().get(selectedRow);
@@ -75,6 +79,7 @@ public class SearchBookGUI extends JFrame {
                     JOptionPane.showMessageDialog(SearchBookGUI.this, "Please select a book to lend.");
                 }
             }
+        }
         });
         btnLendBook.setBounds(134, 240, 180, 23);
         contentPane.add(btnLendBook);
@@ -139,23 +144,31 @@ public class SearchBookGUI extends JFrame {
     }
 
     public void showLendingRecord() {
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow != -1) {
-            Book selectedBook = BookList.getBooksInventory().get(selectedRow);
-            ArrayList<BorrowRecord> borrowRecordsForBook = new ArrayList<>();
-            for (BorrowRecord record : BorrowRecordList.getBorrowedRecord()) {
-                if (record.getBorrowedBook().equals(selectedBook)) {
-                    borrowRecordsForBook.add(record);
-                }
-            }
-            if (!borrowRecordsForBook.isEmpty()) {
-                new SpecificBorrowRecordGUI(borrowRecordsForBook).setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(this, "No lending records found for this book.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Please select a book to view lending records.");
-        }
+    	if(this.table==null) {
+    		JOptionPane.showMessageDialog(this, "Please select a book to view lending records.");
+    	}
+    	else {
+	        int selectedRow = table.getSelectedRow();
+	        if (selectedRow != -1) {
+	            Book selectedBook = BookList.getBooksInventory().get(selectedRow);
+	            ArrayList<BorrowRecord> borrowRecordsForBook = new ArrayList<>();
+	            for (BorrowRecord record : BorrowRecordList.getBorrowedRecord()) {
+	                if (record.getBorrowedBook().equals(selectedBook)) {
+	                    borrowRecordsForBook.add(record);
+	                }
+	            }
+	            if (!borrowRecordsForBook.isEmpty()) {
+	                new SpecificBorrowRecordGUI(borrowRecordsForBook).setVisible(true);
+	            } else {
+	                JOptionPane.showMessageDialog(this, "No lending records found for this book.");
+	            }
+	        } 
+	        
+	        
+	        else {
+	            JOptionPane.showMessageDialog(this, "Please select a book to view lending records.");
+	        }
+    }
     }
 
     public void cancel() {
