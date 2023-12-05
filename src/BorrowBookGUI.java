@@ -56,10 +56,10 @@ public class BorrowBookGUI extends JDialog {
                     }
                     book.setQuantity(book.getQuantity() - 1);
                     BorrowRecord borrowRecord = new BorrowRecord(book, borrowerName, currentDate, dueDate);
-                    ArrayList<BorrowRecord> currentBorrowRecord = BorrowRecord.getAllBorrowRecord();
+                    ArrayList<BorrowRecord> currentBorrowRecord = BorrowRecordList.getBorrowedRecord();
                     currentBorrowRecord.add(borrowRecord);
-                    BorrowRecord.saveData();
-                    Book.saveData();
+                    BorrowRecordFileManager.saveData();
+                    BookFileManager.saveData();
 
                     JOptionPane.showMessageDialog(BorrowBookGUI.this, "Book lent successfully.");
                     dispose();

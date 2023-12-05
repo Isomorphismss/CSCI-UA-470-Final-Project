@@ -126,8 +126,8 @@ public class AddBookGUI extends JFrame {
                 JOptionPane.showMessageDialog(this, "Please enter a valid quantity.");
                 return;
             }
-            Book.getBooksInventory().add(new Book(title, author, isbn, genre, quantity));
-            Book.saveData();
+            BookList.getBooksInventory().add(new Book(title, author, isbn, genre, quantity));
+            BookFileManager.saveData();
             JOptionPane.showMessageDialog(this, "Book added successfully.");
             resetFields();
         }

@@ -63,7 +63,7 @@ public class SearchBookGUI extends JFrame {
             public void actionPerformed(ActionEvent e){
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
-                    Book selectedBook = Book.getBooksInventory().get(selectedRow);
+                    Book selectedBook = BookList.getBooksInventory().get(selectedRow);
                     if (selectedBook.getQuantity() > 0) {
                         lendBook(selectedBook);
                     } 
@@ -103,12 +103,12 @@ public class SearchBookGUI extends JFrame {
         String[] columnNames = {"Title", "Author", "ISBN", "Genre", "Quantity"};
         ArrayList<Book> results = new ArrayList<>();
         if (query.isEmpty()) {
-            for (Book books : Book.getBooksInventory()) {
+            for (Book books : BookList.getBooksInventory()) {
                 results.add(books);
             }
         } 
         else {
-            for (Book book : Book.getBooksInventory()) {
+            for (Book book : BookList.getBooksInventory()) {
                 if (book.getTitle().toLowerCase().contains(query.toLowerCase()) ||
                     book.getAuthor().toLowerCase().contains(query.toLowerCase()) ||
                     book.getISBN().toLowerCase().contains(query.toLowerCase()) ||
@@ -141,9 +141,9 @@ public class SearchBookGUI extends JFrame {
     public void showLendingRecord() {
         int selectedRow = table.getSelectedRow();
         if (selectedRow != -1) {
-            Book selectedBook = Book.getBooksInventory().get(selectedRow);
+            Book selectedBook = BookList.getBooksInventory().get(selectedRow);
             ArrayList<BorrowRecord> borrowRecordsForBook = new ArrayList<>();
-            for (BorrowRecord record : BorrowRecord.getAllBorrowRecord()) {
+            for (BorrowRecord record : BorrowRecordList.getBorrowedRecord()) {
                 if (record.getBorrowedBook().equals(selectedBook)) {
                     borrowRecordsForBook.add(record);
                 }

@@ -26,7 +26,7 @@ public class BrowseBooksGUI extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        displayAllBooks(Book.getBooksInventory());
+        displayAllBooks(BookList.getBooksInventory());
 
         JButton btnDelete = new JButton("Delete");
         btnDelete.addActionListener(new ActionListener() {
@@ -107,15 +107,15 @@ public class BrowseBooksGUI extends JFrame {
     }
 
     public void deleteBook(int index) throws IOException {
-        Book.getBooksInventory().remove(index);
-        displayAllBooks(Book.getBooksInventory()); // Refresh the table model directly
-        Book.saveData();
+        BookList.getBooksInventory().remove(index);
+        displayAllBooks(BookList.getBooksInventory()); // Refresh the table model directly
+        BookFileManager.saveData();
     }
 
     public void updateBook(int index) throws IOException {
-        Book selectedBook = Book.getBooksInventory().get(index);
+        Book selectedBook = BookList.getBooksInventory().get(index);
         UpdateBookGUI updateBookGUI = new UpdateBookGUI(this, selectedBook, index);
         updateBookGUI.setVisible(true);
-        displayAllBooks(Book.getBooksInventory());
+        displayAllBooks(BookList.getBooksInventory());
     }
 }

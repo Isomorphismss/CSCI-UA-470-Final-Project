@@ -28,7 +28,7 @@ public class ViewAllBorrowedBooksGUI extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        displayAllBorrowedBooks(BorrowRecord.getAllBorrowRecord());
+        displayAllBorrowedBooks(BorrowRecordList.getBorrowedRecord());
 
         JButton btnClose = new JButton("Close");
         btnClose.addActionListener(new ActionListener() {
@@ -44,19 +44,19 @@ public class ViewAllBorrowedBooksGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
-                    BorrowRecord selectedRecord = BorrowRecord.getAllBorrowRecord().get(selectedRow);
+                    BorrowRecord selectedRecord = BorrowRecordList.getBorrowedRecord().get(selectedRow);
                     Book returnedBook = selectedRecord.getBorrowedBook();
-                    for (Book book : Book.getBooksInventory()) {
+                    for (Book book : BookList.getBooksInventory()) {
                         if (book.equals(returnedBook)) {
                             book.setQuantity(book.getQuantity() + 1);
                             break;
                         }
                     }
-                    BorrowRecord.getAllBorrowRecord().remove(selectedRow);
+                    BorrowRecordList.getBorrowedRecord().remove(selectedRow);
                     try {
-                        Book.saveData();
-                        BorrowRecord.saveData();
-                        displayAllBorrowedBooks(BorrowRecord.getAllBorrowRecord());
+                        BookFileManager.saveData();
+                        BorrowRecordFileManager.saveData();
+                        displayAllBorrowedBooks(BorrowRecordList.getBorrowedRecord());
                         JOptionPane.showMessageDialog(ViewAllBorrowedBooksGUI.this, "Book returned successfully.");
                     } catch (IOException ex) {
                         ex.printStackTrace();
