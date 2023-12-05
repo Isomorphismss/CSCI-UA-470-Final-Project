@@ -104,8 +104,8 @@ public class UpdateBookGUI extends JDialog {
             JOptionPane.showMessageDialog(this, "Please enter a valid quantity.");
             return;
         }
-        Book.getBooksInventory().set(bookIndex, book);
-        Book.saveData();
+        BookList.getBooksInventory().set(bookIndex, book);
+        BookFileManager.saveData();
         JOptionPane.showMessageDialog(this, "Book updated successfully.");
         dispose();
     }

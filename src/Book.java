@@ -7,7 +7,7 @@ public class Book implements Serializable {
     private String ISBN;
     private String genre;
     private int quantity;
-    private static ArrayList<Book> booksInventory = new ArrayList<>();
+    
 
     public Book(String title, String author, String ISBN, String genre, int quantity) {
         this.title = title;
@@ -17,9 +17,7 @@ public class Book implements Serializable {
         this.quantity = quantity;
     }
 
-    public static ArrayList<Book> getBooksInventory() {
-        return booksInventory;
-    }
+   
 
     public String getTitle() {
         return title;
@@ -41,10 +39,7 @@ public class Book implements Serializable {
         return quantity;
     }
 
-    public static void setBooksInventory(ArrayList<Book> booksInventory) {
-        Book.booksInventory = booksInventory;
-    }
-
+   
     public void setTitle(String title) {
         this.title = title;
     }
@@ -77,21 +72,5 @@ public class Book implements Serializable {
         return ISBN != null ? ISBN.hashCode() : 0;
     }
 
-    @SuppressWarnings("unchecked")
-    public static void loadData() throws IOException, ClassNotFoundException {
-        File file = new File("booksInventory.bin");
-        if (file.exists()) {
-            FileInputStream fileInputStream = new FileInputStream("booksInventory.bin");
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            Book.setBooksInventory((ArrayList<Book>) objectInputStream.readObject());
-            objectInputStream.close();
-        }
-    }
-
-    public static void saveData() throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream("booksInventory.bin");
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-        objectOutputStream.writeObject(Book.getBooksInventory());
-        objectOutputStream.close();
-    }
+    
 }
