@@ -49,7 +49,8 @@ public class BorrowBookGUI extends JDialog {
                     if (borrowerName.isEmpty()) {
                         JOptionPane.showMessageDialog(BorrowBookGUI.this, "Invalid input. Please check the borrower's name.");
                         return;
-                    } else if (dueDate.before(currentDate)) {
+                    } 
+                    else if (dueDate.before(currentDate)) {
                         JOptionPane.showMessageDialog(BorrowBookGUI.this, "Invalid due date. Due date should not be earlier than today.");
                         return;
                     }

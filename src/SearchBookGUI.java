@@ -66,16 +66,27 @@ public class SearchBookGUI extends JFrame {
                     Book selectedBook = Book.getBooksInventory().get(selectedRow);
                     if (selectedBook.getQuantity() > 0) {
                         lendBook(selectedBook);
-                    } else {
+                    } 
+                    else {
                         JOptionPane.showMessageDialog(SearchBookGUI.this, "This book is currently not available for lending.");
                     }
-                } else {
+                } 
+                else {
                     JOptionPane.showMessageDialog(SearchBookGUI.this, "Please select a book to lend.");
                 }
             }
         });
-        btnLendBook.setBounds(149, 240, 150, 23);
+        btnLendBook.setBounds(134, 240, 180, 23);
         contentPane.add(btnLendBook);
+
+        JButton btnShowLendingRecord = new JButton("Show Lending Record");
+        btnShowLendingRecord.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showLendingRecord();
+            }
+        });
+        btnShowLendingRecord.setBounds(134, 270, 180, 23);
+        contentPane.add(btnShowLendingRecord);
 
         txtSearch = new JTextField();
         txtSearch.setBounds(58, 28, 321, 21);
@@ -92,10 +103,11 @@ public class SearchBookGUI extends JFrame {
         String[] columnNames = {"Title", "Author", "ISBN", "Genre", "Quantity"};
         ArrayList<Book> results = new ArrayList<>();
         if (query.isEmpty()) {
-            for (Book books : Book.getBooksInventory()){
+            for (Book books : Book.getBooksInventory()) {
                 results.add(books);
             }
-        } else {
+        } 
+        else {
             for (Book book : Book.getBooksInventory()) {
                 if (book.getTitle().toLowerCase().contains(query.toLowerCase()) ||
                     book.getAuthor().toLowerCase().contains(query.toLowerCase()) ||
@@ -124,6 +136,26 @@ public class SearchBookGUI extends JFrame {
         scrollPane.setBounds(58, 62, 329, 132);
         contentPane.add(scrollPane);
         txtSearch.setText("");
+    }
+
+    public void showLendingRecord() {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) {
+            Book selectedBook = Book.getBooksInventory().get(selectedRow);
+            ArrayList<BorrowRecord> borrowRecordsForBook = new ArrayList<>();
+            for (BorrowRecord record : BorrowRecord.getAllBorrowRecord()) {
+                if (record.getBorrowedBook().equals(selectedBook)) {
+                    borrowRecordsForBook.add(record);
+                }
+            }
+            if (!borrowRecordsForBook.isEmpty()) {
+                new SpecificBorrowRecordGUI(borrowRecordsForBook).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "No lending records found for this book.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a book to view lending records.");
+        }
     }
 
     public void cancel() {
