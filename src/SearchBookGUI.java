@@ -107,12 +107,13 @@ public class SearchBookGUI extends JFrame {
         contentPane.remove(scrollPane);
         String[] columnNames = {"Title", "Author", "ISBN", "Genre", "Quantity"};
         ArrayList<Book> results = new ArrayList<>();
-        if (query.isEmpty()) {
-            for (Book books : BookList.getBooksInventory()) {
-                results.add(books);
-            }
-        } 
-        else {
+        //if (query.isEmpty()) {
+            //for (Book books : BookList.getBooksInventory()) {
+               // results.add(books);
+            //}
+        //} 
+        if (!query.isEmpty()) {
+        //else {
             for (Book book : BookList.getBooksInventory()) {
                 if (book.getTitle().toLowerCase().contains(query.toLowerCase()) ||
                     book.getAuthor().toLowerCase().contains(query.toLowerCase()) ||
@@ -120,7 +121,8 @@ public class SearchBookGUI extends JFrame {
                     book.getGenre().toLowerCase().contains(query.toLowerCase())) {
                     results.add(book);
                 }
-            }
+            //}
+        }
         }
         Object[][] data = new Object[results.size()][5];
         for (int i = 0; i < results.size(); i++) {
