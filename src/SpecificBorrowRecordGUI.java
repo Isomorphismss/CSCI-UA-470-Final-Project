@@ -12,7 +12,7 @@ public class SpecificBorrowRecordGUI extends JFrame {
     private JTable table;
     private JScrollPane scrollPane;
     private DefaultTableModel tableModel;
-
+    private JButton btnClose;
     public SpecificBorrowRecordGUI(ArrayList<BorrowRecord> borrowRecordsForBook) {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 550, 300);
@@ -23,7 +23,7 @@ public class SpecificBorrowRecordGUI extends JFrame {
 
         displayAllBorrowedBooks(borrowRecordsForBook);
 
-        JButton btnClose = new JButton("Close");
+        btnClose = new JButton("Close");
         btnClose.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 close();

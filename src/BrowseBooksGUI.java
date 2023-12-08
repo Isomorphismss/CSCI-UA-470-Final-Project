@@ -17,7 +17,9 @@ public class BrowseBooksGUI extends JFrame {
     private JTable table;
     private JScrollPane scrollPane;
     private DefaultTableModel tableModel;
-
+    private JButton btnDelete;
+    private JButton btnUpdate;
+    private JButton btnClose;
     public BrowseBooksGUI() throws IOException {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
@@ -28,7 +30,7 @@ public class BrowseBooksGUI extends JFrame {
 
         displayAllBooks(BookList.getBooksInventory());
 
-        JButton btnDelete = new JButton("Delete");
+        btnDelete = new JButton("Delete");
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
@@ -47,7 +49,7 @@ public class BrowseBooksGUI extends JFrame {
         btnDelete.setBounds(54, 211, 93, 23);
         contentPane.add(btnDelete);
 
-        JButton btnUpdate = new JButton("Update");
+        btnUpdate = new JButton("Update");
         btnUpdate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
@@ -66,7 +68,7 @@ public class BrowseBooksGUI extends JFrame {
         btnUpdate.setBounds(174, 211, 93, 23);
         contentPane.add(btnUpdate);
 
-        JButton btnClose = new JButton("Close");
+        btnClose = new JButton("Close");
         btnClose.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 close();

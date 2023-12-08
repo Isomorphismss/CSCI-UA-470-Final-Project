@@ -12,7 +12,8 @@ public class BorrowBookGUI extends JDialog {
     private JButton submitButton;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private Book book;
-
+    private JLabel lblBorrowerName;
+    private JLabel lblDueDate;
     public BorrowBookGUI(JFrame parent, Book book) {
         super(parent, "Borrow Book", true);
         this.book = book;
@@ -22,7 +23,7 @@ public class BorrowBookGUI extends JDialog {
         contentPane.setLayout(null);
         setContentPane(contentPane);
 
-        JLabel lblBorrowerName = new JLabel("Borrower's Name:");
+        lblBorrowerName = new JLabel("Borrower's Name:");
         lblBorrowerName.setBounds(62, 40, 110, 15);
         contentPane.add(lblBorrowerName);
 
@@ -30,7 +31,7 @@ public class BorrowBookGUI extends JDialog {
         borrowerNameField.setBounds(182, 37, 187, 21);
         contentPane.add(borrowerNameField);
 
-        JLabel lblDueDate = new JLabel("Due Date (yyyy-MM-dd):");
+        lblDueDate = new JLabel("Due Date (yyyy-MM-dd):");
         lblDueDate.setBounds(62, 70, 150, 15);
         contentPane.add(lblDueDate);
 

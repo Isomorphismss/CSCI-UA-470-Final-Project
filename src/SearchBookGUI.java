@@ -22,7 +22,7 @@ public class SearchBookGUI extends JFrame {
     private JScrollPane scrollPane;
     private JTable table;
     private DefaultTableModel tableModel;
-    
+    private JButton btnShowLendingRecord;
     private Map<Integer, Book> rowToBookMap = new HashMap<>();
 
     public SearchBookGUI() {

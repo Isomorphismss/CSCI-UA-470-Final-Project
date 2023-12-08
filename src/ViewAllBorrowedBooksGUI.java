@@ -19,7 +19,7 @@ public class ViewAllBorrowedBooksGUI extends JFrame {
     private JScrollPane scrollPane;
     private DefaultTableModel tableModel;
     private JButton btnReturn;
-
+    private JButton btnClose;
     public ViewAllBorrowedBooksGUI() throws IOException {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 550, 300);
@@ -30,7 +30,7 @@ public class ViewAllBorrowedBooksGUI extends JFrame {
 
         displayAllBorrowedBooks(BorrowRecordList.getBorrowedRecord());
 
-        JButton btnClose = new JButton("Close");
+        btnClose = new JButton("Close");
         btnClose.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 close();
