@@ -10,6 +10,7 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.*;
 
 public class SearchBookGUI extends JFrame {
     private JPanel contentPane;
@@ -21,6 +22,8 @@ public class SearchBookGUI extends JFrame {
     private JScrollPane scrollPane;
     private JTable table;
     private DefaultTableModel tableModel;
+    
+    private Map<Integer, Book> rowToBookMap = new HashMap<>();
 
     public SearchBookGUI() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -60,26 +63,23 @@ public class SearchBookGUI extends JFrame {
 
         btnLendBook = new JButton("Lend this Book");
         btnLendBook.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-            if(table==null) {
-            	JOptionPane.showMessageDialog(SearchBookGUI.this, "Please select a book to lend.");
-            }
-            else {
+            public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
-                    Book selectedBook = BookList.getBooksInventory().get(selectedRow);
-                    if (selectedBook.getQuantity() > 0) {
-                        lendBook(selectedBook);
-                    } 
-                    else {
-                        JOptionPane.showMessageDialog(SearchBookGUI.this, "This book is currently not available for lending.");
+                    Book selectedBook = rowToBookMap.get(selectedRow);
+                    if (selectedBook != null) {
+                        if (selectedBook.getQuantity() > 0) {
+                            lendBook(selectedBook);
+                        } else {
+                            JOptionPane.showMessageDialog(SearchBookGUI.this, "This book is currently not available for lending.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(SearchBookGUI.this, "Please select a valid book to lend.");
                     }
-                } 
-                else {
+                } else {
                     JOptionPane.showMessageDialog(SearchBookGUI.this, "Please select a book to lend.");
                 }
             }
-        }
         });
         btnLendBook.setBounds(134, 240, 180, 23);
         contentPane.add(btnLendBook);
@@ -125,8 +125,11 @@ public class SearchBookGUI extends JFrame {
         }
         }
         Object[][] data = new Object[results.size()][5];
+        
+        rowToBookMap.clear();
         for (int i = 0; i < results.size(); i++) {
-            Book b = results.get(i);
+        	Book b = results.get(i);
+            rowToBookMap.put(i, b);
             data[i][0] = b.getTitle();
             data[i][1] = b.getAuthor();
             data[i][2] = b.getISBN();
@@ -146,32 +149,33 @@ public class SearchBookGUI extends JFrame {
     }
 
     public void showLendingRecord() {
-    	if(this.table==null) {
-    		JOptionPane.showMessageDialog(this, "Please select a book to view lending records.");
-    	}
-    	else {
-	        int selectedRow = table.getSelectedRow();
-	        if (selectedRow != -1) {
-	            Book selectedBook = BookList.getBooksInventory().get(selectedRow);
-	            ArrayList<BorrowRecord> borrowRecordsForBook = new ArrayList<>();
-	            for (BorrowRecord record : BorrowRecordList.getBorrowedRecord()) {
-	                if (record.getBorrowedBook().equals(selectedBook)) {
-	                    borrowRecordsForBook.add(record);
-	                }
-	            }
-	            if (!borrowRecordsForBook.isEmpty()) {
-	                new SpecificBorrowRecordGUI(borrowRecordsForBook).setVisible(true);
-	            } else {
-	                JOptionPane.showMessageDialog(this, "No lending records found for this book.");
-	            }
-	        } 
-	        
-	        
-	        else {
-	            JOptionPane.showMessageDialog(this, "Please select a book to view lending records.");
-	        }
+        if (this.table == null) {
+            JOptionPane.showMessageDialog(this, "Please select a book to view lending records.");
+        } else {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                Book selectedBook = rowToBookMap.get(selectedRow); // Use the map to get the selected book
+                if (selectedBook != null) {
+                    ArrayList<BorrowRecord> borrowRecordsForBook = new ArrayList<>();
+                    for (BorrowRecord record : BorrowRecordList.getBorrowedRecord()) {
+                        if (record.getBorrowedBook().equals(selectedBook)) {
+                            borrowRecordsForBook.add(record);
+                        }
+                    }
+                    if (!borrowRecordsForBook.isEmpty()) {
+                        new SpecificBorrowRecordGUI(borrowRecordsForBook).setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No lending records found for this book.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please select a valid book to view lending records.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a book to view lending records.");
+            }
+        }
     }
-    }
+
 
     public void cancel() {
         dispose();
