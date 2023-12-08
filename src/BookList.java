@@ -11,8 +11,4 @@ public class BookList {
 		BookList.booksInventory = booksInventory;
 	}
 
-	
-	
-
-	
 }

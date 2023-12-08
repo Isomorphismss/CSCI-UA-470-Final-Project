@@ -1,15 +1,11 @@
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.event.ActionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 
 public class SpecificBorrowRecordGUI extends JFrame {
     private JPanel contentPane;
@@ -17,7 +13,6 @@ public class SpecificBorrowRecordGUI extends JFrame {
     private JScrollPane scrollPane;
     private DefaultTableModel tableModel;
 
-    // Constructor that takes a specific book's borrow records
     public SpecificBorrowRecordGUI(ArrayList<BorrowRecord> borrowRecordsForBook) {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 550, 300);
@@ -26,7 +21,7 @@ public class SpecificBorrowRecordGUI extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        displayAllBorrowedBooks(borrowRecordsForBook); // Display the specific book's borrow records
+        displayAllBorrowedBooks(borrowRecordsForBook);
 
         JButton btnClose = new JButton("Close");
         btnClose.addActionListener(new ActionListener() {
@@ -46,14 +41,17 @@ public class SpecificBorrowRecordGUI extends JFrame {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         String[] columnNames = {"Book Title", "Borrower Name", "Borrowed Date", "Due Date", "Days Left/Overdue"};
         Object[][] data = new Object[borrowRecordsForBook.size()][5];
+
         for (int i = 0; i < borrowRecordsForBook.size(); i++) {
             BorrowRecord record = borrowRecordsForBook.get(i);
+
             data[i][0] = record.getBorrowedBook().getTitle();
             data[i][1] = record.getBorrowerName();
             data[i][2] = dateFormat.format(record.getBorrowDate());
             data[i][3] = dateFormat.format(record.getDueDate());
             data[i][4] = getDaysLeftOrOverdue(record.getDueDate());
         }
+
         if (tableModel == null) {
             tableModel = new DefaultTableModel(data, columnNames);
             table = new JTable(tableModel) {
