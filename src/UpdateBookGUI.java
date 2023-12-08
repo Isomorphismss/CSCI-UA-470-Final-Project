@@ -15,7 +15,11 @@ public class UpdateBookGUI extends JDialog {
     private JButton btnCancel;
     private Book book;
     private int bookIndex;
-
+    private JLabel lblTitle;
+    private JLabel lblAuthor;
+    private JLabel lblISBN;
+    private JLabel lblGenre;
+    private JLabel lblQuantity;
     public UpdateBookGUI(Frame parent, Book book, int index){
         super(parent, "Update Book", true);
 
@@ -28,23 +32,23 @@ public class UpdateBookGUI extends JDialog {
         contentPane.setLayout(null);
         setContentPane(contentPane);
 
-        JLabel lblTitle = new JLabel("Title:");
+        lblTitle = new JLabel("Title:");
         lblTitle.setBounds(62, 40, 79, 15);
         contentPane.add(lblTitle);
 
-        JLabel lblAuthor = new JLabel("Author:");
+        lblAuthor = new JLabel("Author:");
         lblAuthor.setBounds(62, 70, 79, 15);
         contentPane.add(lblAuthor);
 
-        JLabel lblISBN = new JLabel("ISBN:");
+        lblISBN = new JLabel("ISBN:");
         lblISBN.setBounds(62, 100, 79, 15);
         contentPane.add(lblISBN);
 
-        JLabel lblGenre = new JLabel("Genre:");
+        lblGenre = new JLabel("Genre:");
         lblGenre.setBounds(62, 130, 79, 15);
         contentPane.add(lblGenre);
 
-        JLabel lblQuantity = new JLabel("Quantity:");
+        lblQuantity = new JLabel("Quantity:");
         lblQuantity.setBounds(62, 160, 79, 15);
         contentPane.add(lblQuantity);
 
