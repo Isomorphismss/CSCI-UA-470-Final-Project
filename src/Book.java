@@ -55,7 +55,7 @@ public class Book implements Serializable {
         this.quantity = quantity;
     }
 
-    // Ensure it's the same book regardless of memory location
+    // Ensure it's the same book by checking the ISBN number
     public boolean equals(Object obj) {
         if (this == obj) 
             return true;

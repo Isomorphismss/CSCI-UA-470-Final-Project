@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class BrowseBooksGUI extends JFrame {
-
     private JPanel contentPane;
     private JTable table;
     private JScrollPane scrollPane;
