@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.ArrayList;
 
 public class Book implements Serializable {
     private String title;
@@ -8,7 +7,6 @@ public class Book implements Serializable {
     private String genre;
     private int quantity;
     
-
     public Book(String title, String author, String ISBN, String genre, int quantity) {
         this.title = title;
         this.author = author;
@@ -16,8 +14,6 @@ public class Book implements Serializable {
         this.genre = genre;
         this.quantity = quantity;
     }
-
-   
 
     public String getTitle() {
         return title;
@@ -39,7 +35,6 @@ public class Book implements Serializable {
         return quantity;
     }
 
-   
     public void setTitle(String title) {
         this.title = title;
     }
@@ -62,8 +57,10 @@ public class Book implements Serializable {
 
     // Ensure it's the same book regardless of memory location
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) 
+            return true;
+        if (obj == null || getClass() != obj.getClass()) 
+            return false;
         Book book = (Book) obj;
         return ISBN != null ? ISBN.equals(book.ISBN) : book.ISBN == null;
     }
@@ -71,6 +68,4 @@ public class Book implements Serializable {
     public int hashCode() {
         return ISBN != null ? ISBN.hashCode() : 0;
     }
-
-    
 }

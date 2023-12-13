@@ -109,6 +109,13 @@ public class BrowseBooksGUI extends JFrame {
     }
 
     public void deleteBook(int index) throws IOException {
+        Book aboutToDelete = BookList.getBooksInventory().get(index);
+        for (BorrowRecord r: BorrowRecordList.getBorrowedRecord()){
+            if (r.getBorrowedBook().equals(aboutToDelete)){
+                JOptionPane.showMessageDialog(BrowseBooksGUI.this, "This book has not been fully returned yet!");
+                return;
+            }
+        }
         BookList.getBooksInventory().remove(index);
         displayAllBooks(BookList.getBooksInventory()); // Refresh the table model directly
         BookFileManager.saveData();

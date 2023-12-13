@@ -1,11 +1,4 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class BorrowRecord implements Serializable {
@@ -13,7 +6,6 @@ public class BorrowRecord implements Serializable {
     private String borrowerName;
     private Date borrowDate;
     private Date dueDate;
-    
 
     public BorrowRecord(Book borrowedBook, String borrowerName, Date borrowDate, Date dueDate) {
         this.borrowedBook = borrowedBook;
@@ -21,8 +13,6 @@ public class BorrowRecord implements Serializable {
         this.borrowDate = borrowDate;
         this.dueDate = dueDate;
     }
-
-   
 
     public Book getBorrowedBook() {
         return borrowedBook;
@@ -39,8 +29,6 @@ public class BorrowRecord implements Serializable {
     public Date getDueDate() {
         return dueDate;
     }
-
-    
 
     public void setBorrowedBook(Book borrowedBook) {
         this.borrowedBook = borrowedBook;
@@ -61,7 +49,4 @@ public class BorrowRecord implements Serializable {
     public boolean isOverdue(Date currentDate) {
         return currentDate.after(this.dueDate);
     }
-
-
-    
 }

@@ -10,6 +10,4 @@ public class BorrowRecordList {
 	public static void setBorrowedRecord(ArrayList<BorrowRecord> borrowedRecord) {
 		BorrowRecordList.borrowedRecord = borrowedRecord;
 	}
-
-	
 }
