@@ -64,6 +64,10 @@ public class SearchBookGUI extends JFrame {
         btnLendBook = new JButton("Lend this Book");
         btnLendBook.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	if(table==null) {
+            		JOptionPane.showMessageDialog(SearchBookGUI.this, "Please select a book to lend.");
+            		return;
+            	}
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
                     Book selectedBook = rowToBookMap.get(selectedRow);
